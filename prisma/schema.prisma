@@ -1,0 +1,1252 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminCompany {
+  id                         Int                         @id @default(autoincrement())
+  adminID                    Int                         @unique
+  organizationName           String                      @unique
+  companyEmail               String?
+  businessLocation           String?
+  companyAddress             String?
+  postalCode                 Int?
+  website                    String?
+  currency                   String?
+  industry                   String?
+  country                    String?
+  city                       String?
+  state                      String?
+  createdAt                  DateTime                    @default(now())
+  updatedAt                  DateTime                    @updatedAt
+  imageId                    Int?
+  accountName                String?
+  accountNumber              String?
+  bankName                   String?
+  VAT                        Float                       @default(7.5)
+  accounts                   Account[]
+  adjustInventory            AdjustInventory[]
+  user                       User                        @relation(fields: [adminID], references: [id], onDelete: Cascade)
+  logo                       Image?                      @relation("logo", fields: [imageId], references: [id])
+  approvalNotifications      ApprovalNotifications[]
+  auditLog                   AuditLog[]
+  stockBatch                 BatchLog[]
+  categories                 Category[]
+  contacts                   Contacts[]
+  customRoles                CustomRole[]
+  customers                  Customer[]
+  departments                Department[]
+  employees                  Employee[]
+  image                      Image[]                     @relation("companyImages")
+  InAppNotifications         InAppNotifications[]
+  integration                Integration[]
+  invoices                   Invoice[]
+  //items                      Item[]
+  loanRequest                LoanRequest[]
+  packagingMetric            PackagingMetric[]
+  payments                   Payment[]
+  priceList                  PriceList[]
+  products                   Product[]
+  purchaseOrder              PurchaseOrder[]
+  purchaseOrderConfirmations PurchaseOrderConfirmation[]
+  purchaseTransactions       PurchasesTransaction[]
+  request                    Request[]
+  salesOrder                 SalesOrder[]
+  salesTransactions          SalesTransaction[]
+  serialNumber               SerialNumber[]
+  stocks                     Stock[]
+  history                    StockRequest[]
+  suppliers                  Supplier[]
+  systemNotifications        SystemNotifications[]
+  tasks                      Task[]
+  taskActivities             TaskActivities[]
+  taskComment                TaskComment[]
+  wareHouses                 WareHouse[]
+  systemRoles                SystemRole[]                @relation("SystemRoleToCompany")
+  loanReturn                 LoanReturn[]
+  departmentRole             DepartmentRole[]
+}
+
+model Account {
+  id            Int          @id @default(autoincrement())
+  companyId     Int
+  accountName   String
+  accountNumber String
+  bankName      String
+  isDefault     Boolean?     @default(false)
+  createdAt     DateTime?    @default(now())
+  updatedAt     DateTime?    @updatedAt
+  company       AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+}
+
+model ApprovalNotifications {
+  id               Int               @id @default(autoincrement())
+  message          String
+  comment          String?
+  read             Boolean           @default(false)
+  companyId        Int
+  notifierId       Int?
+  userId           Int?
+  approverId       Int?
+  salesOrderId     Int?
+  purchaseOrderId  Int?
+  requestId        Int?
+  createdAt        DateTime?         @default(now())
+  updatedAt        DateTime?         @updatedAt
+  stockRequestId   Int?
+  delivered        Boolean?          @default(false)
+  dispatched       Boolean?          @default(false)
+  notificationType NotificationType? @default(ApprovalNotifications)
+  type             String?
+  loanRequestId    Int?
+  approver         User?             @relation("ApproverNotifications", fields: [approverId], references: [id], onDelete: Cascade)
+  company          AdminCompany      @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  loanRequest      LoanRequest?      @relation(fields: [loanRequestId], references: [id], onDelete: Cascade)
+  notifier         User?             @relation("AllUsersNotifications", fields: [notifierId], references: [id], onDelete: Cascade)
+  purchaseOrder    PurchaseOrder?    @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  request          Request?          @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  salesOrder       SalesOrder?       @relation(fields: [salesOrderId], references: [id], onDelete: Cascade)
+  stockRequest     StockRequest?     @relation(fields: [stockRequestId], references: [id], onDelete: Cascade)
+  user             User?             @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id              Int            @id @default(autoincrement())
+  action          String
+  entity          Json?
+  before          Json
+  after           Json
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  companyId       Int
+  productId       Int?
+  salesOrderId    Int?
+  purchaseOrderId Int?
+  invoiceId       Int?
+  paymentId       Int?
+  userId          Int
+  Company         AdminCompany   @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  invoice         Invoice?       @relation(fields: [invoiceId], references: [id])
+  payment         Payment?       @relation(fields: [paymentId], references: [id])
+  product         Product?       @relation(fields: [productId], references: [id])
+  purchaseOrder   PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id])
+  salesOrder      SalesOrder?    @relation(fields: [salesOrderId], references: [id])
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchaseRequest Request[]      @relation("PurchaseRequestToLog")
+  salesRequest    Request[]      @relation("SalesRequestToLog")
+}
+
+model AdjustInventory {
+  id           Int              @id @default(autoincrement())
+  type         AdjustmentType
+  dateAdjusted DateTime
+  reason       String?
+  description  String?
+  account      String?
+  wareHouse    String?
+  itemDetails  Json?
+  status       AdjustmentStatus @default(ADJUSTED)
+  companyId    Int
+  productId    Int?
+  adjustedBy   String?
+  createdAt    DateTime?        @default(now())
+  updatedAt    DateTime?        @updatedAt
+  Company      AdminCompany     @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  product      Product[]        @relation("AdjustInventoryToProduct")
+}
+
+model CustomRole {
+  id          Int          @id @default(autoincrement())
+  companyId   Int
+  name        String
+  description String?
+  permissions Json?
+  company     AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  users       User[]       @relation("CustomRoleToUser")
+  department  Department[] @relation("DepartmentToCustomRole")
+}
+
+model Customer {
+  id                 Int                @id @default(autoincrement())
+  companyId          Int
+  serialNumber       String
+  primaryContactName String?
+  title              String?
+  companyEmail       String?
+  registeredBy       String?
+  firstName          String?
+  lastName           String?
+  displayName        String?
+  companyName        String?
+  mobileNumber       String?
+  website            String?
+  currency           String?
+  department         String?
+  mediaLink          String[]
+  billAddress        Json?
+  shippingAddress    Json?
+  createdAt          DateTime?          @default(now())
+  updatedAt          DateTime?          @updatedAt
+  channel            String?
+  customerCategory   String?
+  manager            String?
+  type               String?
+  customerType       CustomerType?
+  balance            Int?               @default(0)
+  totalInvoiceAmount Int?
+  totalPaymentAmount Int?
+  stockBatch         BatchLog[]
+  Company            AdminCompany       @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  invoices           Invoice[]
+  loanRequest        LoanRequest[]
+  payments           Payment[]
+  requests           Request[]
+  salesOrder         SalesOrder[]
+  salesTransaction   SalesTransaction[]
+  contacts           Contacts[]         @relation("ContactsToCustomer")
+  employees          Employee[]         @relation("CustomerToEmployee")
+  products           Product[]          @relation("CustomerToProduct")
+  loanReturn         LoanReturn[]
+}
+
+model Contacts {
+  id            Int          @id @default(autoincrement())
+  title         String?
+  firstName     String?
+  lastName      String?
+  mobileNumber  String?
+  companyEmail  String?
+  department    String?
+  businessPhone String?
+  primary       Boolean?     @default(false)
+  companyId     Int
+  type          RequestType?
+  createdAt     DateTime?    @default(now())
+  updatedAt     DateTime?    @updatedAt
+  company       AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customers     Customer[]   @relation("ContactsToCustomer")
+  suppliers     Supplier[]   @relation("ContactsToSupplier")
+}
+
+model Category {
+  id        Int          @id @default(autoincrement())
+  companyId Int
+  name      String
+  createdAt DateTime?    @default(now())
+  updatedAt DateTime?    @updatedAt
+  company   AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  products  Product[]    @relation("CategoryToProduct")
+}
+
+model Department {
+  id              Int              @id @default(autoincrement())
+  companyId       Int
+  name            String
+  description     String?
+  permissions     Json?
+  company         AdminCompany     @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customRole      CustomRole[]     @relation("DepartmentToCustomRole")
+  departmentRoles DepartmentRole[] @relation("DepartmentToDepartmentRole")
+  purchaseOrder   PurchaseOrder[]  @relation("DepartmentToPurchaseOrder")
+  salesOrder      SalesOrder[]     @relation("DepartmentToSalesOrder")
+  systemRole      SystemRole[]     @relation("DepartmentToSystemRole")
+  tasks           Task[]           @relation("DepartmentToTask")
+  users           User[]           @relation("DepartmentToUser")
+}
+
+model DepartmentRole {
+  id          Int          @id @default(autoincrement())
+  description String?
+  name        String
+  department  Department[] @relation("DepartmentToDepartmentRole")
+
+  companyId Int?
+  company   AdminCompany? @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+}
+
+model Employee {
+  id              Int          @id @default(autoincrement())
+  companyId       Int
+  user_employeeID Int          @unique
+  registeredBy    String?
+  dateEngaged     DateTime     @default(now())
+  companyEmail    String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  Company         AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  user            User         @relation(fields: [user_employeeID], references: [id], onDelete: Cascade)
+  customers       Customer[]   @relation("CustomerToEmployee")
+  products        Product[]    @relation("EmployeeToProduct")
+  suppliers       Supplier[]   @relation("EmployeeToSupplier")
+}
+
+model Integration {
+  id              Int             @id @default(autoincrement())
+  integrationType IntegrationType
+  credentials     Json
+  location        String?
+  storeName       String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  userId          Int
+  companyId       Int
+  company         AdminCompany    @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Request {
+  id                    Int                     @id @default(autoincrement())
+  REQ                   String?
+  name                  String
+  type                  RequestType
+  location              String?
+  openedBy              String?
+  opened                DateTime
+  dueDate               DateTime
+  totalPrice            String?
+  itemDetails           Json?
+  approverName          String?
+  state                 RequestState            @default(PENDING)
+  companyId             Int
+  customerId            Int?
+  supplierId            Int?
+  createdAt             DateTime?               @default(now())
+  updatedAt             DateTime?               @updatedAt
+  priceListName         String?
+  comment               String?
+  approverId            Int?
+  assignedToId          Int?
+  approvalNotifications ApprovalNotifications[]
+  InAppNotifications    InAppNotifications[]
+  purchaseOrder         PurchaseOrder[]
+  purchasesTransaction  PurchasesTransaction[]
+  approver              User?                   @relation("Approver", fields: [approverId], references: [id], onDelete: Cascade)
+  assignedTo            User?                   @relation("AssignedTo", fields: [assignedToId], references: [id], onDelete: Cascade)
+  Company               AdminCompany            @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customer              Customer?               @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  supplier              Supplier?               @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  salesOrder            SalesOrder[]
+  salesTransaction      SalesTransaction[]
+  purchaseRequestAudit  AuditLog[]              @relation("PurchaseRequestToLog")
+  purchaseRequest       Product[]               @relation("PurchaseRequestToProduct")
+  salesRequestAudit     AuditLog[]              @relation("SalesRequestToLog")
+  salesRequest          Product[]               @relation("SalesRequestToProduct")
+}
+
+model SystemRole {
+  id          Int            @id @default(autoincrement())
+  name        String         @unique
+  description String?
+  permissions Json?
+  department  Department[]   @relation("DepartmentToSystemRole")
+  companies   AdminCompany[] @relation("SystemRoleToCompany")
+  users       User[]         @relation("SystemRoleToUser")
+}
+
+model Supplier {
+  id                        Int                         @id @default(autoincrement())
+  companyId                 Int
+  serialNumber              String
+  primaryContactName        String?
+  title                     String?
+  companyEmail              String?
+  registeredBy              String?
+  firstName                 String?
+  lastName                  String?
+  displayName               String?
+  companyName               String?
+  mobileNumber              String?
+  website                   String?
+  currency                  String?
+  department                String?
+  supplierType              SupplierType
+  mediaLink                 String[]
+  billAddress               Json?
+  shippingAddress           Json?
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  batchLogs                 BatchLog[]
+  invoices                  Invoice[]
+  products                  Product[]
+  purchaseOrder             PurchaseOrder[]
+  purchaseOrderConfirmation PurchaseOrderConfirmation[]
+  purchaseTransactions      PurchasesTransaction[]
+  requests                  Request[]
+  stocks                    Stock[]
+  Company                   AdminCompany                @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  contacts                  Contacts[]                  @relation("ContactsToSupplier")
+  employees                 Employee[]                  @relation("EmployeeToSupplier")
+}
+
+model StockRequest {
+  id                     Int                     @id @default(autoincrement())
+  requestNumber          String
+  approverName           String?
+  dateInitiated          DateTime
+  dueDate                DateTime
+  status                 RequestState?           @default(PENDING)
+  receivingWarehouseName String
+  sendingWarehouseName   String
+  requestedBy            String
+  itemDetails            Json?
+  createdAt              DateTime?               @default(now())
+  updatedAt              DateTime?               @updatedAt
+  sendingWarehouseId     Int?
+  receivingWarehouseId   Int?
+  companyId              Int?
+  approverId             Int?
+  comment                String?
+  notifications          ApprovalNotifications[]
+  InAppNotifications     InAppNotifications[]
+  stockApprover          User?                   @relation("stockApprover", fields: [approverId], references: [id], onDelete: Cascade)
+  company                AdminCompany?           @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  receivingWarehouse     WareHouse?              @relation("ReceivingWarehouse", fields: [receivingWarehouseId], references: [id], onDelete: Cascade)
+  sendingWarehouse       WareHouse?              @relation("SendingWarehouse", fields: [sendingWarehouseId], references: [id], onDelete: Cascade)
+  systemNotifications    SystemNotifications[]
+}
+
+model SalesOrder {
+  id                 Int                     @id @default(autoincrement())
+  customerName       String
+  SN                 String
+  shipmentDate       DateTime
+  priceListName      String?
+  discount           String?
+  shippingAddress    String?
+  shippingCharges    String?
+  priority           Priority
+  location           String?
+  itemDetails        Json
+  totalItems         String
+  totalPrice         String
+  status             RequestState
+  state              TaskState
+  type               OrderType
+  approved           Boolean                 @default(false)
+  openedBy           String
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  companyId          Int
+  approverId         Int?
+  assignedToId       Int?
+  requestId          Int?
+  customerId         Int?
+  comment            String?
+  notifications      ApprovalNotifications[]
+  auditLog           AuditLog[]
+  stockBatch         BatchLog[]
+  InAppNotifications InAppNotifications[]
+  invoices           Invoice[]
+  approver           User?                   @relation("Approver", fields: [approverId], references: [id], onDelete: Cascade)
+  assignedTo         User?                   @relation("AssignedTo", fields: [assignedToId], references: [id], onDelete: Cascade)
+  Company            AdminCompany            @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customer           Customer?               @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  request            Request?                @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  salesTransaction   SalesTransaction[]
+  departments        Department[]            @relation("DepartmentToSalesOrder")
+  product            Product[]               @relation("SalesOrderToProduct")
+  payments           Payment[]
+}
+
+model SerialNumber {
+  id            Int          @id @default(autoincrement())
+  prefix        String
+  module        String
+  currentNumber Int          @default(1)
+  createdAt     DateTime     @default(now())
+  companyId     Int
+  isReserved    Boolean      @default(false)
+  company       AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+}
+
+model Stock {
+  id                Int          @id @default(autoincrement())
+  companyId         Int
+  itemName          String?
+  warehouseName     String?
+  openingStock      String?
+  openingStockValue String?
+  createdBy         String?
+  createdAt         DateTime?    @default(now())
+  updatedAt         DateTime?    @updatedAt
+  batchNumber       String?
+  committedQuantity Int?         @default(0)
+  purchase          Json?
+  sales             Json?
+  active            Boolean      @default(false)
+  initialQtyValue   Int?
+  supplierId        Int?
+  supplierName      String?
+  stockBatch        BatchLog[]
+  company           AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  supplier          Supplier?    @relation(fields: [supplierId], references: [id])
+  //items             Item[]       @relation("ItemToStock")
+  product           Product[]    @relation("ProductToStock")
+  warehouses        WareHouse[]  @relation("StockToWareHouse")
+}
+
+model SystemNotifications {
+  id               Int               @id @default(autoincrement())
+  message          String
+  comment          String?
+  read             Boolean           @default(false)
+  companyId        Int
+  receiverId       Int?
+  userId           Int?
+  approverId       Int?
+  taskId           Int?
+  createdAt        DateTime?         @default(now())
+  updatedAt        DateTime?         @updatedAt
+  stockRequestId   Int?
+  delivered        Boolean?          @default(false)
+  dispatched       Boolean?          @default(false)
+  notificationType NotificationType? @default(SystemNotifications)
+  type             String?
+  approver         User?             @relation("ApproverNotifications", fields: [approverId], references: [id], onDelete: Cascade)
+  company          AdminCompany      @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  reciever         User?             @relation("AllUsersNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
+  stockRequest     StockRequest?     @relation(fields: [stockRequestId], references: [id], onDelete: Cascade)
+  task             Task?             @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user             User?             @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Waitlist {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  email       String
+  phoneNumber String
+  companyName String
+  companySize String
+  industry    String
+  position    String
+  status      String   @default("waiting")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PriceList {
+  id           Int           @id @default(autoincrement())
+  name         String
+  type         PriceListType
+  itemRate     ItemRate
+  description  String?
+  percentage   Json?
+  currency     String?
+  customerType CustomerType?
+  companyId    Int
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
+  Company      AdminCompany  @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  products     Product[]     @relation("PriceListToProduct")
+}
+
+model PackagingMetric {
+  id        Int          @id @default(autoincrement())
+  companyId Int
+  packName  String
+  unitName  String
+  createdAt DateTime?    @default(now())
+  updatedAt DateTime?    @updatedAt
+  isDefault Boolean      @default(false)
+  company   AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  products  Product[]
+}
+
+model PurchaseOrderConfirmation {
+  id                   Int                    @id @default(autoincrement())
+  orderId              Int
+  companyId            Int
+  itemDetails          Json?
+  createdAt            DateTime?              @default(now())
+  updatedAt            DateTime?              @updatedAt
+  supplierId           Int?
+  purchaseInvoice      String?
+  company              AdminCompany           @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  purchaseOrder        PurchaseOrder          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  supplier             Supplier?              @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  purchaseTransactions PurchasesTransaction[]
+  product              Product[]              @relation("PurchaseOrderConfirmationToProduct")
+}
+
+model Product {
+  id                        Int                         @id @default(autoincrement())
+  companyId                 Int
+  name                      String
+  unit                      String?
+  dimensions                String?
+  weight                    String?
+  manufacturer              String?
+  brand                     String?
+  productCode               String?
+  inventoryTrack            String?
+  createdBy                 String?
+  purchase                  Json?
+  sales                     Json?
+  totalStock                Float?
+  setInventoryTrack         Boolean?                    @default(false)
+  baseline                  String?
+  setBaseline               Boolean?                    @default(false)
+  primarySupplier           String?
+  status                    ProductStatus?              @default(Active)
+  inventoryAccount          String?
+  customRate                String?
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  groupId                   Int?
+  description               String?
+  unitType                  String?
+  volume                    String?
+  qtyPKT                    String?
+  baseQty                   String?
+  supplierId                Int?
+  packagingMetricId         Int?
+  loanRequestId             Int?
+  auditLog                  AuditLog[]
+  stockBatch                BatchLog[]
+  //items                     Item[]
+  Company                   AdminCompany                @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  LoanRequest               LoanRequest?                @relation(fields: [loanRequestId], references: [id])
+  packagingMetric           PackagingMetric?            @relation(fields: [packagingMetricId], references: [id])
+  supplier                  Supplier?                   @relation(fields: [supplierId], references: [id])
+  purchasesTransaction      PurchasesTransaction[]
+  salesTransaction          SalesTransaction[]
+  adjustInventory           AdjustInventory[]           @relation("AdjustInventoryToProduct")
+  categories                Category[]                  @relation("CategoryToProduct")
+  customers                 Customer[]                  @relation("CustomerToProduct")
+  employee                  Employee[]                  @relation("EmployeeToProduct")
+  image                     Image[]                     @relation("ImageToProduct")
+  invoices                  Invoice[]                   @relation("InvoiceToProduct")
+  payment                   Payment[]                   @relation("PaymentToProduct")
+  priceList                 PriceList[]                 @relation("PriceListToProduct")
+  stocks                    Stock[]                     @relation("ProductToStock")
+  wareHouses                WareHouse[]                 @relation("ProductToWareHouse")
+  purchaseOrderConfirmation PurchaseOrderConfirmation[] @relation("PurchaseOrderConfirmationToProduct")
+  PurchaseOrder             PurchaseOrder[]             @relation("PurchaseOrderToProduct")
+  purchaseRequest           Request[]                   @relation("PurchaseRequestToProduct")
+  salesOrder                SalesOrder[]                @relation("SalesOrderToProduct")
+  salesRequest              Request[]                   @relation("SalesRequestToProduct")
+  loanReturn                LoanReturn[]                @relation("LoanRequestToProduct")
+}
+
+model PurchaseOrder {
+  id                        Int                         @id @default(autoincrement())
+  supplierName              String
+  SN                        String
+  shipmentDate              DateTime?
+  priceListName             String?
+  discount                  String?
+  shippingAddress           String
+  shippingCharges           String?
+  priority                  Priority?
+  location                  String?
+  openedBy                  String
+  itemDetails               Json?
+  totalItems                String?
+  totalPrice                String?
+  status                    RequestState?
+  state                     TaskState?
+  type                      OrderType?
+  approved                  Boolean                     @default(false)
+  companyId                 Int
+  approverId                Int?
+  assignedToId              Int?
+  requestId                 Int?
+  createdAt                 DateTime?                   @default(now())
+  updatedAt                 DateTime?                   @updatedAt
+  supplierId                Int?
+  comment                   String?
+  notifications             ApprovalNotifications[]
+  auditLog                  AuditLog[]
+  InAppNotifications        InAppNotifications[]
+  invoices                  Invoice[]
+  approver                  User?                       @relation("Approver", fields: [approverId], references: [id], onDelete: Cascade)
+  assignedTo                User?                       @relation("AssignedTo", fields: [assignedToId], references: [id], onDelete: Cascade)
+  Company                   AdminCompany                @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  request                   Request?                    @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  supplier                  Supplier?                   @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  purchaseOrderConfirmation PurchaseOrderConfirmation[]
+  purchaseTransactions      PurchasesTransaction[]
+  departments               Department[]                @relation("DepartmentToPurchaseOrder")
+  product                   Product[]                   @relation("PurchaseOrderToProduct")
+}
+
+model Payment {
+  id                    Int                @id @default(autoincrement())
+  customerName          String
+  orderNumber           String?
+  invoiceNumber         String
+  invoiceAmount         String
+  amountPaid            String
+  balance               Float?             @default(0)
+  paymentStatus         PaymentModeStatus
+  paymentMode           PaymentMode
+  paymentDate           DateTime
+  notes                 String?
+  companyId             Int
+  invoiceId             Int
+  createdAt             DateTime?          @default(now())
+  updatedAt             DateTime?          @updatedAt
+  customerId            Int?
+  loanRequestId         Int?
+  salesOrderId          Int?
+  comment               String?
+  customerBalanceAmount String?
+  useCustomerBalance    Boolean?           @default(false)
+  auditLog              AuditLog[]
+  stockBatch            BatchLog[]
+  Company               AdminCompany       @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customer              Customer?          @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  invoice               Invoice            @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  loanRequest           LoanRequest?       @relation(fields: [loanRequestId], references: [id], onDelete: Cascade)
+  salesOrder            SalesOrder?        @relation(fields: [salesOrderId], references: [id], onDelete: Cascade)
+  salesTransaction      SalesTransaction[]
+  product               Product[]          @relation("PaymentToProduct")
+}
+
+model Task {
+  id                 Int                   @id @default(autoincrement())
+  name               String
+  taskSN             String
+  description        String
+  priority           Priority
+  appliesTo          AppliesTo
+  duration           Json
+  notes              String?
+  activity           Boolean               @default(true)
+  assignedBy         String
+  imageId            Int?
+  companyId          Int
+  userId             Int?
+  state              TaskState
+  createdAt          DateTime?             @default(now())
+  updatedAt          DateTime?             @updatedAt
+  approverId         Int?
+  InAppNotifications InAppNotifications[]
+  notifications      SystemNotifications[]
+  approver           User?                 @relation("Approver", fields: [approverId], references: [id], onDelete: Cascade)
+  Company            AdminCompany          @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  image              Image?                @relation(fields: [imageId], references: [id])
+  user               User?                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activities         TaskActivities[]
+  comment            TaskComment[]
+  departments        Department[]          @relation("DepartmentToTask")
+}
+
+model TaskActivities {
+  id        Int          @id @default(autoincrement())
+  comments  String?
+  changes   String?
+  action    String?
+  companyId Int
+  taskId    Int
+  userId    Int?
+  createdAt DateTime?    @default(now())
+  updatedAt DateTime?    @updatedAt
+  Company   AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  task      Task         @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TaskComment {
+  id        Int          @id @default(autoincrement())
+  comment   String
+  companyId Int
+  taskId    Int
+  userId    Int?
+  createdAt DateTime?    @default(now())
+  updatedAt DateTime?    @updatedAt
+  Company   AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  task      Task         @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                          Int                     @id @default(autoincrement())
+  companyEmail                String
+  primaryContactName          String?
+  phone                       String?
+  password                    String?
+  status                      Status?
+  companyId                   Int?
+  userType                    UserType
+  randomNumber                String?                 @unique
+  createdAt                   DateTime                @default(now())
+  updatedAt                   DateTime                @updatedAt
+  resetToken                  DateTime?
+  resetTokenExpiresAt         DateTime?
+  imageId                     Int?
+  otp                         String?
+  otpExpiryTime               DateTime?
+  passwordReset               Boolean?                @default(false)
+  about                       String?
+  address                     String?
+  birthday                    String?
+  country                     String?
+  gender                      String?
+  language                    String?
+  adminCompanyId              AdminCompany?
+  approverNotifications       ApprovalNotifications[] @relation("ApproverNotifications")
+  notifier                    ApprovalNotifications[] @relation("AllUsersNotifications")
+  userNotifications           ApprovalNotifications[] @relation("UserNotifications")
+  auditLog                    AuditLog[]
+  employeeId                  Employee?
+  receiverNotifications       InAppNotifications[]    @relation("ReceiverNotifications")
+  senderNotifications         InAppNotifications[]    @relation("SenderNotifications")
+  integration                 Integration[]
+  loanRequest                 LoanRequest[]
+  purchaseApprover            PurchaseOrder[]         @relation("Approver")
+  purchaseAssignedTo          PurchaseOrder[]         @relation("AssignedTo")
+  requestApprover             Request[]               @relation("Approver")
+  requestAssignedTo           Request[]               @relation("AssignedTo")
+  salesApprover               SalesOrder[]            @relation("Approver")
+  salesAssignedTo             SalesOrder[]            @relation("AssignedTo")
+  stockApprover               StockRequest[]          @relation("stockApprover")
+  approverSystemNotifications SystemNotifications[]   @relation("ApproverNotifications")
+  receiver                    SystemNotifications[]   @relation("AllUsersNotifications")
+  userSytemNotifications      SystemNotifications[]   @relation("UserNotifications")
+  taskApprover                Task[]                  @relation("Approver")
+  tasks                       Task[]
+  taskActivities              TaskActivities[]
+  taskComment                 TaskComment[]
+  image                       Image?                  @relation(fields: [imageId], references: [id])
+  customRoles                 CustomRole[]            @relation("CustomRoleToUser")
+  departments                 Department[]            @relation("DepartmentToUser")
+  systemRoles                 SystemRole[]            @relation("SystemRoleToUser")
+  invoice                     Invoice[]
+  salesTransaction            SalesTransaction[]
+}
+
+// model Item {
+//   id        Int           @id @default(autoincrement())
+//   itemName  String?
+//   options   String[] 
+//   purchase  Json?
+//   sales     Json?
+//   stock     Json?
+//   productId Int?
+//   companyId Int?
+//   createdAt DateTime?     @default(now())
+//   updatedAt DateTime?     @updatedAt
+//   company   AdminCompany? @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+//   product   Product?      @relation(fields: [productId], references: [id])
+//   stocks    Stock[]       @relation("ItemToStock")
+// }
+
+model WareHouse {
+  id                   Int                    @id @default(autoincrement())
+  companyId            Int
+  name                 String
+  address              String?
+  zipCode              String?
+  phone                String?
+  companyEmail         String?
+  country              String?
+  state                String?
+  city                 String?
+  createdBy            String?
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  stockBatch           BatchLog[]
+  loanRequest          LoanRequest[]
+  purchaseTransactions PurchasesTransaction[]
+  SalesTransaction     SalesTransaction[]
+  receivingWarehouse   StockRequest[]         @relation("ReceivingWarehouse")
+  sendingWarehouse     StockRequest[]         @relation("SendingWarehouse")
+  company              AdminCompany           @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  products             Product[]              @relation("ProductToWareHouse")
+  stocks               Stock[]                @relation("StockToWareHouse")
+  loanReturn           LoanReturn[]
+}
+
+model InAppNotifications {
+  id               Int               @id @default(autoincrement())
+  read             Boolean?          @default(false)
+  type             String?
+  delivered        Boolean?          @default(false)
+  dispatched       Boolean?          @default(false)
+  notificationType NotificationType? @default(SystemNotifications)
+  companyId        Int
+  receiverId       Int?
+  senderId         Int?
+  salesOrderId     Int?
+  purchaseOrderId  Int?
+  requestId        Int?
+  createdAt        DateTime?         @default(now())
+  updatedAt        DateTime?         @updatedAt
+  stockRequestId   Int?
+  taskId           Int?
+  message          Json?
+  loanRequestId    Int?
+  company          AdminCompany      @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  loanRequest      LoanRequest?      @relation(fields: [loanRequestId], references: [id], onDelete: Cascade)
+  purchaseOrder    PurchaseOrder?    @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  receiver         User?             @relation("ReceiverNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
+  request          Request?          @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  salesOrder       SalesOrder?       @relation(fields: [salesOrderId], references: [id], onDelete: Cascade)
+  sender           User?             @relation("SenderNotifications", fields: [senderId], references: [id], onDelete: Cascade)
+  stockRequest     StockRequest?     @relation(fields: [stockRequestId], references: [id], onDelete: Cascade)
+  task             Task?             @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([dispatched])
+  @@index([delivered])
+  @@index([read])
+  @@index([receiverId])
+  @@index([senderId])
+  @@index([companyId])
+}
+
+model Invoice {
+  id               Int                @id @default(autoincrement())
+  orderSN          String?
+  invoiceSN        String
+  salesDate        DateTime
+  invoiceDate      DateTime
+  dueDate          DateTime
+  salesPerson      String?
+  priceListName    String?
+  discount         String?
+  shippingCharges  String?
+  notes            String?
+  totalPrice       String?
+  paymentStatus    PaymentStatus      @default(UNPAID)
+  itemDetails      Json
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  companyId        Int
+  supplierId       Int?
+  customerId       Int?
+  saleOrderId      Int?
+  loanRequestId    Int?
+  purchaseOrderId  Int?
+  salesPersonId    Int?
+  comment          String?
+  auditLog         AuditLog[]
+  stockBatch       BatchLog[]
+  Company          AdminCompany       @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  soldBy           User?              @relation(fields: [salesPersonId], references: [id])
+  customer         Customer?          @relation(fields: [customerId], references: [id])
+  purchaseOrder    PurchaseOrder?     @relation(fields: [purchaseOrderId], references: [id])
+  salesOrder       SalesOrder?        @relation(fields: [saleOrderId], references: [id])
+  loanRequest      LoanRequest?       @relation(fields: [loanRequestId], references: [id])
+  Supplier         Supplier?          @relation(fields: [supplierId], references: [id])
+  payments         Payment[]
+  salesTransaction SalesTransaction[]
+  product          Product[]          @relation("InvoiceToProduct")
+}
+
+model SalesTransaction {
+  id              Int          @id @default(autoincrement())
+  quantity        Float?
+  amount          Float?
+  transactionDate DateTime     @default(now())
+  transactionTime DateTime     @default(now())
+  status          String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  productId       Int
+  customerId      Int
+  invoiceId       Int
+  paymentId       Int
+  saleOrderId     Int?
+  loanRequestId   Int?
+  salesRequestId  Int?
+  companyId       Int
+  productName     String?
+  rate            Float?
+  warehouseName   String?
+  warehouseId     Int?
+  salesPersonId   Int?
+  Company         AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  Customer        Customer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  Invoice         Invoice      @relation(fields: [invoiceId], references: [id])
+  Payment         Payment      @relation(fields: [paymentId], references: [id])
+  Product         Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  SalesOrder      SalesOrder?  @relation(fields: [saleOrderId], references: [id])
+  loanRequest     LoanRequest? @relation(fields: [loanRequestId], references: [id])
+  SalesRequest    Request?     @relation(fields: [salesRequestId], references: [id])
+  warehouse       WareHouse?   @relation(fields: [warehouseId], references: [id])
+  salesPerson     User?        @relation(fields: [salesPersonId], references: [id])
+}
+
+model BatchLog {
+  id             Int          @id @default(autoincrement())
+  batchId        Int
+  quantity       Float?
+  status         String?
+  productName    String?
+  warehouseName  String?
+  createdAt      DateTime     @default(now())
+  productId      Int?
+  customerId     Int?
+  invoiceId      Int?
+  paymentId      Int?
+  saleOrderId    Int?
+  companyId      Int
+  warehouseId    Int?
+  sellingPrice   Float?
+  batchNumber    String
+  supplierId     Int?
+  amount         Float?
+  costPriceInPCS Float?
+  costPriceInPKT Float?
+  costPrice      Float?
+  loanRequestId  Int?
+  stock          Stock        @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  company        AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customer       Customer?    @relation(fields: [customerId], references: [id])
+  invoice        Invoice?     @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  loanRequest    LoanRequest? @relation(fields: [loanRequestId], references: [id])
+  payment        Payment?     @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  product        Product?     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  salesOrder     SalesOrder?  @relation(fields: [saleOrderId], references: [id])
+  supplier       Supplier?    @relation(fields: [supplierId], references: [id])
+  warehouse      WareHouse?   @relation(fields: [warehouseId], references: [id])
+
+  @@index([batchId, productId, companyId, saleOrderId])
+}
+
+model LoanRequest {
+  id                 Int                     @id @default(autoincrement())
+  requestNumber      String
+  dateInitiated      DateTime
+  dueDate            DateTime
+  status             RequestState?           @default(PENDING)
+  requestedBy        String
+  price              String?
+  itemDetails        Json?
+  createdAt          DateTime?               @default(now())
+  updatedAt          DateTime?               @updatedAt
+  companyId          Int
+  approverId         Int?
+  customerId         Int?
+  warehouseId        Int?
+  notifications      ApprovalNotifications[]
+  batchLog           BatchLog[]
+  InAppNotifications InAppNotifications[]
+  approver           User?                   @relation(fields: [approverId], references: [id], onDelete: Cascade)
+  company            AdminCompany            @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  customer           Customer?               @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  wareHouse          WareHouse?              @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  salesTransaction   SalesTransaction[]
+  products           Product[]
+  loanReturn         LoanReturn[]
+  invoice            Invoice[]
+  payments           Payment[]
+}
+
+model LoanReturn {
+  id          Int          @id @default(autoincrement())
+  loanId      Int
+  companyId   Int
+  warehouseId Int?
+  itemDetails Json?
+  createdAt   DateTime?    @default(now())
+  updatedAt   DateTime?    @updatedAt
+  customerId  Int?
+  note        String?
+  company     AdminCompany @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  loanRequest LoanRequest  @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  customer    Customer?    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  wareHouse   WareHouse?   @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  product     Product[]    @relation("LoanRequestToProduct")
+}
+
+model PurchasesTransaction {
+  id                        Int                       @id @default(autoincrement())
+  quantity                  Float?
+  rate                      Float?
+  amount                    Float?
+  productName               String?
+  warehouseName             String?
+  status                    String?
+  createdAt                 DateTime                  @default(now())
+  updatedAt                 DateTime                  @updatedAt
+  productId                 Int
+  companyId                 Int
+  confirmationId            Int
+  purchaseOrderId           Int
+  purchaseRequestId         Int
+  supplierId                Int
+  warehouseId               Int?
+  Company                   AdminCompany              @relation(fields: [companyId], references: [adminID], onDelete: Cascade)
+  purchaseOrderConfirmation PurchaseOrderConfirmation @relation(fields: [confirmationId], references: [id])
+  Product                   Product                   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  purchaseOrder             PurchaseOrder             @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  purchaseRequest           Request                   @relation(fields: [purchaseRequestId], references: [id])
+  supplier                  Supplier                  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  warehouse                 WareHouse?                @relation(fields: [warehouseId], references: [id])
+}
+
+model Image {
+  id        Int            @id @default(autoincrement())
+  publicId  String         @unique
+  url       String
+  companyId Int?
+  logo      AdminCompany[] @relation("logo")
+  Company   AdminCompany?  @relation("companyImages", fields: [companyId], references: [adminID], onDelete: Cascade)
+  tasks     Task[]
+  users     User[]
+  product   Product[]      @relation("ImageToProduct")
+}
+
+enum IntegrationType {
+  SHOPIFY
+  EBAY
+}
+
+enum NotificationType {
+  ApprovalNotifications
+  SystemNotifications
+}
+
+enum AdjustmentType {
+  QUANTITY
+  VALUE
+}
+
+enum AdjustmentStatus {
+  ADJUSTED
+}
+
+enum CustomerType {
+  RETAILER
+  WHOLESALER
+  MANUFACTURER
+}
+
+enum SupplierType {
+  WHOLESALER
+  MANUFACTURER
+}
+
+enum RequestType {
+  SUPPLIER
+  CUSTOMER
+}
+
+enum RequestState {
+  AWAITING_APPROVAL
+  APPROVED
+  PENDING
+  REJECT
+  COMPLETED
+  CONFIRM
+  CANCELED
+  CANCELLED
+  CLOSED
+  RETURNED
+  PART_RETURNED
+}
+
+enum PriceListType {
+  SALES
+  PURCHASE
+}
+
+enum ItemRate {
+  MARK_UP_AND_DOWN
+  INDIVIDUAL_RATE
+}
+
+enum TaskState {
+  OPEN
+  CANCEL
+  RECEIVE
+  CLOSE
+  DONE
+  PENDING
+  COMPLETED
+  CLOSED
+}
+
+enum AppliesTo {
+  CUSTOMER
+  SUPPLIER
+  OTHERS
+}
+
+enum Priority {
+  CRITICAL
+  HIGH
+  MODERATE
+  LOW
+}
+
+enum CompletionStatus {
+  Complete
+  Incomplete
+}
+
+enum OrderType {
+  DRAFT
+  APPROVAL
+}
+
+enum PaymentMode {
+  CASH
+  TRANSFER
+  BALANCE
+}
+
+enum Channel {
+  ONTRADE
+  WHOLESALE
+  OFFTRADE
+}
+
+enum Track {
+  TRUE
+  FALSE
+}
+
+enum Type {
+  WHOLESALER
+  RETAILER
+  CLUB
+}
+
+enum Status {
+  Active
+  Deactivate
+}
+
+enum OrderStatus {
+  Draft
+  Save
+}
+
+enum ProductStatus {
+  Active
+  Inactive
+}
+
+enum PaymentStatus {
+  PAID
+  UNPAID
+  PART
+  CANCELLED
+}
+
+enum PaymentModeStatus {
+  PART_PAYMENT
+  FULL_PAYMENT
+  CANCELLED
+}
+
+enum ModeOfPayment {
+  CASH
+  CREDIT
+  OTHER
+}
+
+enum UserType {
+  ADMIN
+  COMPANY
+  SUPPLIER
+  CUSTOMER
+  EMPLOYEE
+}

@@ -1,0 +1,1 @@
+export * from './resonse.interface';

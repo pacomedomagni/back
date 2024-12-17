@@ -1,0 +1,108 @@
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all sales transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchases transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchase order confirmations for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all payments for the company’s invoices","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all loan returns for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all loan requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all invoices for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all sales orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchase orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all stocks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all products for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all system notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all in-app notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all stock requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all task activities for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all task comments for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all tasks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all batchLog for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Successfully reset inventory for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:31:47"}
+{"companyId":4,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-06 04:32:41"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all sales transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchases transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchase order confirmations for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all payments for the company’s invoices","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all loan returns for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all loan requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all invoices for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all sales orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchase orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all stocks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all products for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all system notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all in-app notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all stock requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all task activities for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all task comments for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all tasks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all batchLog for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Successfully reset inventory for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:37:54"}
+{"companyId":4,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-06 04:37:59"}
+{"environment":"development","level":"error","message":"An error occurred while creating product","service":"createProduct","timestamp":"2024-12-06 04:48:06","trace":"HttpException: Please provide a valid supplier\n    at ProductsService.createProduct (/home/hp/Documents/projects/backend/src/products/products.service.ts:67:17)"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all sales transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchases transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchase order confirmations for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all payments for the company’s invoices","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all loan returns for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all loan requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all invoices for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all sales orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchase orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all stocks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all products for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all system notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all in-app notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all stock requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all task activities for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all task comments for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all tasks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all batchLog for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Successfully reset inventory for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:50:58"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all sales transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchases transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchase order confirmations for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all payments for the company’s invoices","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all loan returns for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all loan requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all invoices for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all sales orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchase orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all stocks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all products for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all system notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all in-app notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all stock requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all task activities for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all task comments for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all tasks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all batchLog for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"companyId":3,"environment":"development","level":"info","message":"Successfully reset inventory for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 04:51:37"}
+{"environment":"development","level":"error","message":"An error occurred while creating product","service":"createProduct","timestamp":"2024-12-06 05:20:38","trace":"HttpException: Please provide a valid supplier\n    at ProductsService.createProduct (/home/hp/Documents/projects/backend/src/products/products.service.ts:67:17)"}
+{"companyId":3,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-06 05:21:30"}
+{"environment":"development","level":"error","message":"An error occurred while creating product","service":"createProduct","timestamp":"2024-12-06 05:26:56","trace":"HttpException: Please provide a valid supplier\n    at ProductsService.createProduct (/home/hp/Documents/projects/backend/src/products/products.service.ts:67:17)"}
+{"companyId":4,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-06 05:27:05"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all sales transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchases transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchase order confirmations for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all payments for the company’s invoices","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all loan returns for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all loan requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all invoices for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all sales orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all purchase orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all stocks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all products for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:34"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all system notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all in-app notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all stock requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all task activities for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all task comments for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all tasks for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Deleted all batchLog for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Successfully reset inventory for the company","service":"resetCompanyInventory","timestamp":"2024-12-06 05:37:35"}
+{"companyId":4,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-06 05:37:42"}

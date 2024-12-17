@@ -1,0 +1,25 @@
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all sales transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchases transactions for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchase order confirmations for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all payments for the company’s invoices","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all loan returns for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all loan requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all invoices for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all sales orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all purchase orders for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all stocks for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all products for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all system notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all in-app notifications for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all stock requests for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all task activities for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all task comments for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all tasks for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Deleted all batchLog for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Successfully reset inventory for the company","service":"resetCompanyInventory","timestamp":"2024-12-04 03:50:00"}
+{"companyId":3,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-04 03:56:44"}
+{"environment":"development","level":"error","message":"An error occurred while creating product","service":"createProduct","timestamp":"2024-12-04 03:58:51","trace":"HttpException: Please provide a valid supplier\n    at ProductsService.createProduct (/home/hp/Documents/projects/backend/src/products/products.service.ts:67:17)"}
+{"companyId":4,"environment":"development","level":"info","message":"Sucessfully created product: [object Object]","service":"createProduct","timestamp":"2024-12-04 04:00:36"}
+{"companyId":3,"environment":"development","level":"warn","message":"Product with name laptop already exist","service":"createProduct","timestamp":"2024-12-04 06:51:07"}
+{"environment":"development","level":"error","message":"An error occurred while creating product","service":"createProduct","timestamp":"2024-12-04 06:51:08","trace":"HttpException: Product with name laptop already exist\n    at ProductsService.createProduct (/home/hp/Documents/projects/backend/src/products/products.service.ts:55:15)"}

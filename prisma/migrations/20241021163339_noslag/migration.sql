@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Invoice" ALTER COLUMN "orderSN" DROP NOT NULL,
+ALTER COLUMN "salesPerson" DROP NOT NULL,
+ALTER COLUMN "totalPrice" DROP NOT NULL;
